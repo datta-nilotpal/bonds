@@ -19,15 +19,23 @@
     <!-- Search Form Section with Centered Box -->
     <section id="search-section" class="search-section">
       <div class="search-box">
-        <input type="text" id="search-bar" placeholder="Search by bond number, donor name, or political party...">
+        <input type="text" id="search-bar" placeholder="Enter your search term...">
         
-        <!-- Dropdown for Filter Type -->
+        <!-- Dropdown for Filter Type with Updated Categories -->
         <select id="filter-type">
           <option value="all">All Categories</option>
-          <option value="donor">Donor</option>
-          <option value="party">Political Party</option>
+          <option value="bond-no">Bond No. with Prefix</option>
+          <option value="reference-no">Reference No (URN)</option>
+          <option value="journal-date">Journal Date</option>
           <option value="purchase-date">Date of Purchase</option>
+          <option value="expiry-date">Date of Bond Expiry</option>
+          <option value="donor">Donor</option>
+          <option value="issue-branch">Issue Branch</option>
+          <option value="issue-teller">Issue Teller</option>
           <option value="encashment-date">Date of Encashment</option>
+          <option value="political-party">Political Party</option>
+          <option value="pay-branch">Pay Branch</option>
+          <option value="pay-teller">Pay Teller</option>
         </select>
 
         <button onclick="redirectToResults()">Search</button>
