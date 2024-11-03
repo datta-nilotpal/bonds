@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f4f7f9;
+  background: #f1f5f2; /* Light, soft background to complement the green */
   color: #333;
   display: flex;
   justify-content: center;
@@ -32,13 +32,13 @@ body {
 
 .header h1 {
   font-size: 2em;
-  color: #006400;
+  color: #006e4f; /* Dark green from the logo */
   font-weight: 600;
 }
 
 .header p {
   font-size: 1em;
-  color: #555;
+  color: #4a4a4a; /* Neutral dark gray for contrast */
   margin-bottom: 1.5em;
 }
 
@@ -68,7 +68,7 @@ body {
   width: 100%;
   padding: 12px 15px;
   font-size: 1em;
-  border: 1px solid #ddd;
+  border: 1px solid #c6d8d0; /* Light greenish-gray border */
   border-radius: 8px;
   margin-bottom: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -76,15 +76,15 @@ body {
 }
 
 #search-bar:focus {
-  border-color: #006400;
-  box-shadow: 0 2px 8px rgba(0, 100, 0, 0.2);
+  border-color: #006e4f; /* Dark green border on focus */
+  box-shadow: 0 2px 8px rgba(0, 110, 79, 0.2);
 }
 
 #filter-type {
   width: 100%;
   padding: 12px 15px;
   font-size: 1em;
-  border: 1px solid #ddd;
+  border: 1px solid #c6d8d0;
   border-radius: 8px;
   background-color: #ffffff;
   margin-bottom: 15px;
@@ -97,7 +97,7 @@ button {
   padding: 12px 0;
   font-size: 1em;
   color: #ffffff;
-  background-color: #32CD32;
+  background-color: #006e4f; /* Main button color matching logo */
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -106,7 +106,7 @@ button {
 }
 
 button:hover {
-  background-color: #228B22;
+  background-color: #004d37; /* Darker shade on hover */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
