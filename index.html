@@ -7,21 +7,26 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Electoral Bond Analysis</h1>
-  <p>Enter a bond number, donor, political party, or date to explore electoral bond data.</p>
+  <div class="container">
+    <header class="header">
+      <h1>Electoral Bond Analysis</h1>
+      <p>Discover insights into donor and political party relationships in electoral bonds.</p>
+      <img src="accent-image.jpg" alt="Decorative image" class="header-accent">
+    </header>
 
-  <!-- Search Form -->
-  <section id="search-section">
-    <input type="text" id="search-bar">
-    <select id="filter-type">
-      <option value="all">All Categories</option>
-      <option value="donor">Donor</option>
-      <option value="party">Political Party</option>
-      <option value="purchase-date">Date of Purchase</option>
-      <option value="encashment-date">Date of Encashment</option>
-    </select>
-    <button onclick="redirectToResults()">Search</button>
-  </section>
+    <!-- Search Form Section -->
+    <section id="search-section" class="search-section">
+      <input type="text" id="search-bar" placeholder="Type your search here...">
+      <select id="filter-type">
+        <option value="all">All Categories</option>
+        <option value="donor">Donor</option>
+        <option value="party">Political Party</option>
+        <option value="purchase-date">Date of Purchase</option>
+        <option value="encashment-date">Date of Encashment</option>
+      </select>
+      <button onclick="redirectToResults()">Search</button>
+    </section>
+  </div>
 
   <script>
     function redirectToResults() {
