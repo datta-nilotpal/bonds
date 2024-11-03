@@ -3,48 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Electoral Bond Analysis Dashboard</title>
-  <script src="loadHomePage.js"></script>
+  <title>Electoral Bond Search</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="searchPage.js" defer></script>
 </head>
 <body>
-  <h1>Electoral Bond Analysis Dashboard</h1>
-  <p>Welcome! This site provides an in-depth look into the transactions related to electoral bonds, helping to identify potential patterns and relationships between donors and political parties.</p>
+  <h1>Electoral Bond Analysis</h1>
+  <p>Search and explore electoral bond data by donor, political party, date, and more.</p>
 
-  <!-- Key Metrics Section -->
-  <section id="key-metrics">
-    <h2>Key Metrics</h2>
-    <div id="metrics-container">Loading metrics...</div>
+  <!-- Search Bar and Filters -->
+  <section id="search-section">
+    <input type="text" id="search-bar" placeholder="Search by bond number, donor name, or political party">
+    
+    <select id="filter-type">
+      <option value="all">All Categories</option>
+      <option value="donor">Donor</option>
+      <option value="party">Political Party</option>
+      <option value="purchase-date">Date of Purchase</option>
+      <option value="encashment-date">Date of Encashment</option>
+    </select>
+    
+    <button onclick="performSearch()">Search</button>
   </section>
 
-  <!-- Enhanced Analysis Sections -->
-
-  <!-- Top Donors by Party Section -->
-  <section id="top-donors-by-party">
-    <h2>Top Donors by Political Party</h2>
-    <div>Loading top donors by party...</div>
-  </section>
-
-  <!-- Timeline Analysis Section -->
-  <section id="timeline-data">
-    <h2>Transaction Timeline Analysis</h2>
-    <div>Loading timeline data...</div>
-  </section>
-
-  <!-- High-Denomination Bonds Section -->
-  <section id="high-denomination-bonds">
-    <h2>High-Denomination Bonds (₹1 Crore or more)</h2>
-    <div>Loading high-denomination bonds...</div>
-  </section>
-
-  <!-- Navigation to Other Pages -->
-  <section id="navigation">
-    <h2>Explore by Category</h2>
-    <ul>
-      <li><a href="bond-numbers.html">Transactions by Bond Number</a></li>
-      <li><a href="donors.html">View by Donor</a></li>
-      <li><a href="parties.html">View by Political Party</a></li>
-      <li><a href="dates.html">Explore by Date</a></li>
-    </ul>
+  <!-- Search Results -->
+  <section id="results-section">
+    <h2>Search Results</h2>
+    <table id="results-table">
+      <thead>
+        <tr>
+          <th>Bond Number</th>
+          <th>Donor</th>
+          <th>Political Party</th>
+          <th>Date of Purchase</th>
+          <th>Date of Encashment</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody id="results-body">
+        <!-- Results will populate here -->
+      </tbody>
+    </table>
   </section>
 </body>
 </html>
