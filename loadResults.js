@@ -14,29 +14,39 @@ async function loadSearchResults() {
     return;
   }
 
-  try {
-    // Fetch data from JSON files
-    const purchaseResponse = await fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/purchases.json');
-    const purchasesData = await purchaseResponse.json();
-    const purchases = purchasesData.Sheet1;
+  document.getElementById('results-container').innerHTML = "<p>Loading results...</p>";
 
-    const encashmentResponse = await fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/encashments.json');
+  try {
+    // Fetch both datasets concurrently
+    const [purchaseResponse, encashmentResponse] = await Promise.all([
+      fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/purchases.json'),
+      fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/encashments.json')
+    ]);
+
+    const purchasesData = await purchaseResponse.json();
     const encashmentsData = await encashmentResponse.json();
+    const purchases = purchasesData.Sheet1;
     const encashments = encashmentsData.Sheet1;
 
-    // Choose the dataset based on the filter type
-    let results = [];
-    if (['bond-no', 'reference-no', 'journal-date', 'purchase-date', 'expiry-date', 'donor', 'issue-branch', 'issue-teller'].includes(filter)) {
-      results = filterData(purchases, query, filter);
-    } else if (['encashment-date', 'political-party', 'pay-branch', 'pay-teller'].includes(filter)) {
-      results = filterData(encashments, query, filter);
-    }
+    // Determine the primary data to search based on the selected filter
+    const primaryData = ['bond-no', 'reference-no', 'journal-date', 'purchase-date', 'expiry-date', 'donor', 'issue-branch', 'issue-teller'].includes(filter) ? purchases : encashments;
+    const secondaryData = primaryData === purchases ? encashments : purchases;
 
-    // Display results in the results container
+    // Filter the primary data based on query and filter
+    const primaryResults = filterData(primaryData, query, filter);
+
+    // Enrich primary results with related information from the secondary data
+    const enrichedResults = primaryResults.map(result => {
+      const bondNo = result["Bond No. with Prefix"];
+      const relatedData = secondaryData.find(item => item["Bond No. with Prefix"] === bondNo) || {};
+      return { ...result, ...relatedData };
+    });
+
+    // Display enriched results in the results container
     const container = document.getElementById('results-container');
-    if (results.length > 0) {
-      container.innerHTML = `<h2>Found ${results.length} result(s) for "${query}" in "${filter}"</h2>`;
-      results.forEach(result => {
+    if (enrichedResults.length > 0) {
+      container.innerHTML = `<h2>Found ${enrichedResults.length} result(s) for "${query}" in "${filter}"</h2>`;
+      enrichedResults.forEach(result => {
         container.innerHTML += `<div class="result-item">
           <p><strong>Bond No:</strong> ${result["Bond No. with Prefix"] || "N/A"}</p>
           <p><strong>Reference No (URN):</strong> ${result["Reference No"] || "N/A"}</p>
