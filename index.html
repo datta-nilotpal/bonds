@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electoral Bond Search</title>
   <link rel="stylesheet" href="styles.css">
-  <script src="searchPage.js" defer></script>
 </head>
 <body>
   <h1>Electoral Bond Analysis</h1>
-  <p>Search and explore electoral bond data by donor, political party, date, and more.</p>
+  <p>Enter a bond number, donor, political party, or date to explore electoral bond data.</p>
 
-  <!-- Search Bar and Filters -->
+  <!-- Search Form -->
   <section id="search-section">
     <input type="text" id="search-bar" placeholder="Search by bond number, donor name, or political party">
-    
     <select id="filter-type">
       <option value="all">All Categories</option>
       <option value="donor">Donor</option>
@@ -22,28 +20,15 @@
       <option value="purchase-date">Date of Purchase</option>
       <option value="encashment-date">Date of Encashment</option>
     </select>
-    
-    <button onclick="performSearch()">Search</button>
+    <button onclick="redirectToResults()">Search</button>
   </section>
 
-  <!-- Search Results -->
-  <section id="results-section">
-    <h2>Search Results</h2>
-    <table id="results-table">
-      <thead>
-        <tr>
-          <th>Bond Number</th>
-          <th>Donor</th>
-          <th>Political Party</th>
-          <th>Date of Purchase</th>
-          <th>Date of Encashment</th>
-          <th>Amount</th>
-        </tr>
-      </thead>
-      <tbody id="results-body">
-        <!-- Results will populate here -->
-      </tbody>
-    </table>
-  </section>
+  <script>
+    function redirectToResults() {
+      const searchQuery = document.getElementById("search-bar").value;
+      const filterType = document.getElementById("filter-type").value;
+      window.location.href = `results.html?query=${encodeURIComponent(searchQuery)}&filter=${filterType}`;
+    }
+  </script>
 </body>
 </html>
