@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Electoral Bond Analysis</title>
+  <title>Electoral Bond Analysis Dashboard</title>
+  <script src="scripts/loadHomePage.js"></script>
 </head>
 <body>
-  <h1>Electoral Bond Data Exploration</h1>
-  <p>Explore detailed insights into purchases, encashments, buyers, and more to uncover potential quid pro quo relationships.</p>
-  
-  <nav>
-    <h2>Explore by Attribute</h2>
+  <h1>Electoral Bond Analysis Dashboard</h1>
+  <p>Welcome! This site provides an in-depth look into the transactions related to electoral bonds, helping to identify potential patterns and relationships between donors and political parties.</p>
+
+  <!-- Key Metrics Summary -->
+  <section id="key-metrics">
+    <h2>Key Metrics</h2>
+    <div id="metrics-container">Loading metrics...</div>
+  </section>
+
+  <!-- Quick Links -->
+  <section id="navigation">
+    <h2>Explore by Category</h2>
     <ul>
-      <li><a href="purchases.html">All Purchases</a></li>
-      <li><a href="encashments.html">All Encashments</a></li>
-      <li><a href="buyers.html">View by Buyer</a></li>
-      <li><a href="sellers.html">View by Seller</a></li>
-      <li><a href="bond-numbers.html">View by Prefix + Bond Number</a></li>
-      <li><a href="dates.html">View by Date</a></li>
-      <li><a href="issue-branches.html">View by Issue Branch</a></li>
-      <li><a href="issue-tellers.html">View by Issue Teller</a></li>
+      <li><a href="bond-numbers.html">Transactions by Bond Number</a></li>
+      <li><a href="donors.html">View by Donor</a></li>
+      <li><a href="parties.html">View by Political Party</a></li>
+      <li><a href="dates.html">Explore by Date</a></li>
     </ul>
-  </nav>
+  </section>
 </body>
 </html>
