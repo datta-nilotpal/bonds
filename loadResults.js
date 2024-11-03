@@ -1,6 +1,6 @@
-// Constants for pagination
-const RESULTS_PER_PAGE = 20;
-let currentPage = 1;
+// Constants for batch processing and pagination
+const RESULTS_PER_BATCH = 5;
+let currentBatch = 0;
 let allResults = [];
 
 // Function to get query parameters from the URL
@@ -47,7 +47,9 @@ async function loadSearchResults() {
       return { ...result, ...relatedData };
     });
 
-    displayResults();
+    // Display the first batch of results
+    currentBatch = 0;
+    displayBatchResults();
   } catch (error) {
     console.error("Error loading search results:", error);
     document.getElementById('results-container').innerHTML = `<p>Error loading data. Please try again later.</p>`;
@@ -81,19 +83,23 @@ function getFieldFromFilter(item, filter) {
   return item[filterMapping[filter]];
 }
 
-// Function to display results with pagination
-function displayResults() {
+// Display a small batch of results to avoid overwhelming the browser
+function displayBatchResults() {
   const container = document.getElementById('results-container');
-  const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
-  const endIndex = startIndex + RESULTS_PER_PAGE;
-  const resultsToDisplay = allResults.slice(startIndex, endIndex);
 
-  if (currentPage === 1) {
+  if (currentBatch === 0) {
     container.innerHTML = `<h2>Found ${allResults.length} result(s)</h2>`;
   }
 
-  resultsToDisplay.forEach(result => {
-    container.innerHTML += `<div class="result-item">
+  // Slice a batch of results
+  const startIndex = currentBatch * RESULTS_PER_BATCH;
+  const batchResults = allResults.slice(startIndex, startIndex + RESULTS_PER_BATCH);
+  currentBatch++;
+
+  // Build HTML for the batch and append to container in one operation
+  let batchHtml = '';
+  batchResults.forEach(result => {
+    batchHtml += `<div class="result-item">
       <p><strong>Bond No:</strong> ${result["Bond No. with Prefix"] || "N/A"}</p>
       <p><strong>Reference No (URN):</strong> ${result["Reference No"] || "N/A"}</p>
       <p><strong>Journal Date:</strong> ${result["Journal date"] || "N/A"}</p>
@@ -109,19 +115,21 @@ function displayResults() {
     </div>`;
   });
 
-  // Show "Load More" button if there are more results to load
-  if (endIndex < allResults.length) {
-    const loadMoreButton = document.createElement('button');
-    loadMoreButton.textContent = "Load More";
-    loadMoreButton.onclick = loadMoreResults;
-    container.appendChild(loadMoreButton);
-  }
-}
+  container.innerHTML += batchHtml;
 
-// Function to load more results on button click
-function loadMoreResults() {
-  currentPage++;
-  displayResults();
+  // Show "Load More" button if there are more results to load
+  if (startIndex + RESULTS_PER_BATCH < allResults.length) {
+    if (!document.getElementById('load-more-btn')) {
+      const loadMoreButton = document.createElement('button');
+      loadMoreButton.textContent = "Load More";
+      loadMoreButton.id = 'load-more-btn';
+      loadMoreButton.onclick = displayBatchResults;
+      container.appendChild(loadMoreButton);
+    }
+  } else {
+    const loadMoreButton = document.getElementById('load-more-btn');
+    if (loadMoreButton) loadMoreButton.remove();
+  }
 }
 
 // Load search results when the page is loaded
