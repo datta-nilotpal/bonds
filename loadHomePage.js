@@ -5,12 +5,14 @@ async function loadHomePage() {
     // Using raw GitHub URLs to fetch JSON data
     const purchaseResponse = await fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/purchases.json');
     console.log("Fetched purchases.json:", purchaseResponse);
-    const purchases = await purchaseResponse.json();
+    const purchasesData = await purchaseResponse.json();
+    const purchases = purchasesData.Sheet1; // Accessing the array within "Sheet1"
     console.log("Parsed purchases data:", purchases);
 
     const encashmentResponse = await fetch('https://raw.githubusercontent.com/datta-nilotpal/bonds/refs/heads/main/data/encashments.json');
     console.log("Fetched encashments.json:", encashmentResponse);
-    const encashments = await encashmentResponse.json();
+    const encashmentsData = await encashmentResponse.json();
+    const encashments = encashmentsData.Sheet1; // Accessing the array within "Sheet1"
     console.log("Parsed encashments data:", encashments);
 
     // Summarize data for metrics
